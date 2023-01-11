@@ -8,3 +8,13 @@ C:\Users\ASUS\source\repos\Kursa4\Kursa4\obj\Debug\Kursa4.csproj.GenerateResourc
 C:\Users\ASUS\source\repos\Kursa4\Kursa4\obj\Debug\Kursa4.csproj.CoreCompileInputs.cache
 C:\Users\ASUS\source\repos\Kursa4\Kursa4\obj\Debug\Kursa4.exe
 C:\Users\ASUS\source\repos\Kursa4\Kursa4\obj\Debug\Kursa4.pdb
+C:\Users\taras\OneDrive\Документы\GitHub\IPZ_Kursa4\Kursa4\bin\Debug\Kursa4.exe.config
+C:\Users\taras\OneDrive\Документы\GitHub\IPZ_Kursa4\Kursa4\bin\Debug\Kursa4.exe
+C:\Users\taras\OneDrive\Документы\GitHub\IPZ_Kursa4\Kursa4\bin\Debug\Kursa4.pdb
+C:\Users\taras\OneDrive\Документы\GitHub\IPZ_Kursa4\Kursa4\obj\Debug\Kursa4.csproj.AssemblyReference.cache
+C:\Users\taras\OneDrive\Документы\GitHub\IPZ_Kursa4\Kursa4\obj\Debug\Kursa4.Properties.Resources.resources
+C:\Users\taras\OneDrive\Документы\GitHub\IPZ_Kursa4\Kursa4\obj\Debug\Kursa4.csproj.GenerateResource.cache
+C:\Users\taras\OneDrive\Документы\GitHub\IPZ_Kursa4\Kursa4\obj\Debug\Kursa4.csproj.CoreCompileInputs.cache
+C:\Users\taras\OneDrive\Документы\GitHub\IPZ_Kursa4\Kursa4\obj\Debug\Kursa4.exe
+C:\Users\taras\OneDrive\Документы\GitHub\IPZ_Kursa4\Kursa4\obj\Debug\Kursa4.pdb
+C:\Users\taras\OneDrive\Документы\GitHub\IPZ_Kursa4\Kursa4\obj\Debug\Kursa4.Form1.resources
