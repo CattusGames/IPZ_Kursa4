@@ -14,41 +14,34 @@ namespace Kursa4
     public partial class Form1 : Form
     {
         string line;
-        StreamReader sr = new StreamReader(@"C:\Users\ASUS\Desktop\Git\Lab_Web\IPZ_Kursa4\coords.txt");
+        StreamReader sr = new StreamReader(@"C:\Users\taras\OneDrive\Документы\GitHub\IPZ_Kursa4\coords.txt");
         List<string> ls = new List<string>();
         string finalLine;
-        
+        Triangle[] triangles;
         public Form1()
         {
-            Graphics gr = CreateGraphics();
-
             do
             {
                 line = sr.ReadLine();
                 ls.Add(line);
             } while (line != null);
             sr.Close();
-            Triangle[] mt = new Triangle[ls.Count - 1];
-            for (int i = 0; i < mt.Length; i++)
+            triangles = new Triangle[ls.Count - 1];
+            for (int i = 0; i < triangles.Length; i++)
             {
                 char[] seps = { ' ', ':', ',', ';', '=' };
                 string[] ms = ls[i].Split(seps, StringSplitOptions.RemoveEmptyEntries);
-                
-                mt[i] = new Triangle() {
+
+                triangles[i] = new Triangle() {
                     first = new Point(int.Parse(ms[3]), int.Parse(ms[5])),
                     second = new Point(int.Parse(ms[7]), int.Parse(ms[9])),
                     third = new Point(int.Parse(ms[11]), int.Parse(ms[13])),
                 };
             }
-            foreach (Triangle t in mt)
-            {
-                //Console.WriteLine($"x={t.x}, y={t.y}");
-                finalLine += "Point: X1: "+t.first.X+" Y1: "+t.first.Y+ " X2: " + t.second.X + " Y2: " + t.second.Y + " X3: " + t.third.X + " Y3: " + t.third.Y + "\n";
-            }
             
             InitializeComponent();
         }
-        
+
         public void textBox1_TextChanged(object sender, EventArgs e)
         {
 
@@ -59,7 +52,20 @@ namespace Kursa4
             public Point first { get; set; }
             public Point second { get; set; }
             public Point third { get; set; }
+
         }
 
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+            foreach (Triangle t in triangles)
+            {
+                Graphics gr = panel1.CreateGraphics();
+                Pen blackPen = new Pen(Color.Black, 3);
+                //Console.WriteLine($"x={t.x}, y={t.y}");
+                finalLine += "Point: X1: "+t.first.X+" Y1: "+t.first.Y+ " X2: " + t.second.X + " Y2: " + t.second.Y + " X3: " + t.third.X + " Y3: " + t.third.Y + "\n";
+                Point[] coordinates = { t.first, t.second, t.third };
+                gr.DrawPolygon(blackPen, coordinates);
+            }
+        }
     }
 }
