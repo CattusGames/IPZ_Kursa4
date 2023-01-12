@@ -52,20 +52,35 @@ namespace Kursa4
             public Point first { get; set; }
             public Point second { get; set; }
             public Point third { get; set; }
-
+            public Pen pen = new Pen(Color.Black,3);
         }
+        private void ObtuseAngles(Triangle[] tris)
+        {
+            Pen redPen = new Pen(Color.Red, 3);
 
+            foreach (Triangle t in tris)
+            { 
+                
+            }
+        }
+        private float FindAngle()
+        {
+            return 0f;
+        }
         private void panel1_Paint(object sender, PaintEventArgs e)
         {
             foreach (Triangle t in triangles)
             {
                 Graphics gr = panel1.CreateGraphics();
-                Pen blackPen = new Pen(Color.Black, 3);
+
+
                 //Console.WriteLine($"x={t.x}, y={t.y}");
                 finalLine += "Point: X1: "+t.first.X+" Y1: "+t.first.Y+ " X2: " + t.second.X + " Y2: " + t.second.Y + " X3: " + t.third.X + " Y3: " + t.third.Y + "\n";
                 Point[] coordinates = { t.first, t.second, t.third };
-                gr.DrawPolygon(blackPen, coordinates);
+                gr.DrawPolygon(t.pen, coordinates);
+                
             }
         }
+
     }
 }
