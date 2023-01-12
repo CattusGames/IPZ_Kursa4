@@ -53,22 +53,67 @@ namespace Kursa4
             public Point second { get; set; }
             public Point third { get; set; }
             public Pen pen = new Pen(Color.Black,3);
+            private int lengthSquare(Point p1, Point p2)
+            {
+                int xDiff = p1.X - p2.X;
+                int yDiff = p1.Y - p2.Y;
+                return xDiff * xDiff + yDiff * yDiff;
+            }
+            public float[] Angles()
+            {
+
+                
+                int a2 = lengthSquare(second, third);
+                int b2 = lengthSquare(first, third);
+                int c2 = lengthSquare(first, second);
+
+                
+                float a = (float)Math.Sqrt(a2);
+                float b = (float)Math.Sqrt(b2);
+                float c = (float)Math.Sqrt(c2);
+
+                
+                float alpha = (float)Math.Acos((b2 + c2 - a2) /
+                                                   (2 * b * c));
+                float betta = (float)Math.Acos((a2 + c2 - b2) /
+                                                   (2 * a * c));
+                float gamma = (float)Math.Acos((a2 + b2 - c2) /
+                                                   (2 * a * b));
+
+                
+                alpha = (float)(alpha * 180 / Math.PI);
+                betta = (float)(betta * 180 / Math.PI);
+                gamma = (float)(gamma * 180 / Math.PI);
+
+
+                float[] angles = {alpha,betta,gamma};
+
+                Array.Sort(angles);
+                angles = new float[]{angles[0],angles[2]};
+                
+                return angles;
+            }
         }
         private void ObtuseAngles(Triangle[] tris)
         {
             Pen redPen = new Pen(Color.Red, 3);
+            Triangle more,less;
+            more = tris[0];
+            less = tris[0];
 
-            foreach (Triangle t in tris)
-            { 
-                
+            for (int i = 0;i<tris.Length;i++)
+            {
+                MessageBox.Show(tris[i].Angles()[0].ToString() +" : "+ tris[i].Angles()[1].ToString());
+                if (tris[i].Angles()[1] >= more.Angles()[1])
+                {
+                    more = tris[i];
+                }
             }
         }
-        private float FindAngle()
-        {
-            return 0f;
-        }
+
         private void panel1_Paint(object sender, PaintEventArgs e)
         {
+            ObtuseAngles(triangles);
             foreach (Triangle t in triangles)
             {
                 Graphics gr = panel1.CreateGraphics();
@@ -80,6 +125,7 @@ namespace Kursa4
                 gr.DrawPolygon(t.pen, coordinates);
                 
             }
+            
         }
 
     }
