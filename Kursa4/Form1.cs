@@ -94,38 +94,67 @@ namespace Kursa4
                 return angles;
             }
         }
-        private void ObtuseAngles(Triangle[] tris)
+        private void AcuteAngles(Triangle[] tris)
         {
-            Pen redPen = new Pen(Color.Red, 3);
-            Triangle more,less;
-            more = tris[0];
-            less = tris[0];
+            Triangle temp;
+            Pen greenPen = new Pen(Color.Green,2);
 
-            for (int i = 0;i<tris.Length;i++)
+            for (int i = 0; i < tris.Length - 1; i++)
             {
-                MessageBox.Show(tris[i].Angles()[0].ToString() +" : "+ tris[i].Angles()[1].ToString());
-                if (tris[i].Angles()[1] >= more.Angles()[1])
+                for (int j = i + 1; j < tris.Length; j++)
                 {
-                    more = tris[i];
+                    if (tris[i].Angles()[0] > tris[j].Angles()[0])
+                    {
+                        temp = tris[i];
+                        tris[i] = tris[j];
+                        tris[j] = temp;
+                    }
                 }
             }
+            tris[0].pen = greenPen;
+            tris[1].pen = greenPen;
+            MessageBox.Show("Angle_Accute_1: " + tris[tris.Length - 1].Angles()[0]);
+            MessageBox.Show("Angle_Accute_2: " + tris[tris.Length - 2].Angles()[0]);
+        }
+        private void ObtuseAngles(Triangle[] tris)
+        {
+            Triangle temp;
+            Pen redPen = new Pen(Color.Red,2);
+
+            for (int i = 0; i < tris.Length - 1; i++)
+            {
+                for (int j = i + 1; j < tris.Length; j++)
+                {
+                    if (tris[i].Angles()[1] > tris[j].Angles()[1])
+                    {
+                        temp = tris[i];
+                        tris[i] = tris[j];
+                        tris[j] = temp;
+                    }
+                }
+            }
+
+            tris[tris.Length - 1].pen = redPen;
+            tris[tris.Length - 2].pen = redPen;
+            MessageBox.Show("Angle_Obtuse_1: " + tris[tris.Length - 1].Angles()[1]);
+            MessageBox.Show("Angle_Obtuse_2: " + tris[tris.Length - 2].Angles()[1]);
         }
 
         private void panel1_Paint(object sender, PaintEventArgs e)
         {
+            Graphics gr = panel1.CreateGraphics();
+            
+            AcuteAngles(triangles);
             ObtuseAngles(triangles);
+
             foreach (Triangle t in triangles)
             {
-                Graphics gr = panel1.CreateGraphics();
-
-
                 //Console.WriteLine($"x={t.x}, y={t.y}");
-                finalLine += "Point: X1: "+t.first.X+" Y1: "+t.first.Y+ " X2: " + t.second.X + " Y2: " + t.second.Y + " X3: " + t.third.X + " Y3: " + t.third.Y + "\n";
+                //finalLine += "Point: X1: "+t.first.X+" Y1: "+t.first.Y+ " X2: " + t.second.X + " Y2: " + t.second.Y + " X3: " + t.third.X + " Y3: " + t.third.Y + "\n";
+                
                 Point[] coordinates = { t.first, t.second, t.third };
                 gr.DrawPolygon(t.pen, coordinates);
-                
             }
-            
         }
 
     }
