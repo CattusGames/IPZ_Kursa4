@@ -14,17 +14,22 @@ namespace Kursa4
     public partial class Form1 : Form
     {
         string line;
-        StreamReader sr = new StreamReader(@"C:\Users\taras\OneDrive\Документы\GitHub\IPZ_Kursa4\coords.txt");
+        readonly StreamReader sr = new StreamReader(@"C:\Users\taras\OneDrive\Документы\GitHub\IPZ_Kursa4\InputCoordinates.txt");
+
+        StreamWriter wr = new StreamWriter(@"C:\Users\taras\OneDrive\Документы\GitHub\IPZ_Kursa4\OutputCoordianates.txt");
+
         List<string> ls = new List<string>();
-        string finalLine;
+        public string finalLine;
         Triangle[] triangles;
         public Form1()
         {
+            InitializeComponent();
             do
             {
                 line = sr.ReadLine();
                 ls.Add(line);
-            } while (line != null);
+            } 
+            while (line != null);
             sr.Close();
             triangles = new Triangle[ls.Count - 1];
             for (int i = 0; i < triangles.Length; i++)
@@ -38,20 +43,16 @@ namespace Kursa4
                     third = new Point(int.Parse(ms[11]), int.Parse(ms[13])),
                 };
             }
-            
-            InitializeComponent();
+
+
         }
 
-        public void textBox1_TextChanged(object sender, EventArgs e)
-        {
-
-            textBox1.Text = finalLine;
-        }
         public class Triangle
         {
             public Point first { get; set; }
             public Point second { get; set; }
             public Point third { get; set; }
+
             public Pen pen = new Pen(Color.Black,3);
             private int lengthSquare(Point p1, Point p2)
             {
@@ -113,8 +114,16 @@ namespace Kursa4
             }
             tris[0].pen = greenPen;
             tris[1].pen = greenPen;
-            MessageBox.Show("Angle_Accute_1: " + tris[tris.Length - 1].Angles()[0]);
-            MessageBox.Show("Angle_Accute_2: " + tris[tris.Length - 2].Angles()[0]);
+
+            finalLine += "Angle_Acute_1: "
+                + tris[0].first.ToString() + " ; "
+                + tris[0].second.ToString() + " ; "
+                + tris[0].second.ToString() + " ; \n"
+                + "Angle_Acute_2: "
+                + tris[1].first.ToString() + " ; "
+                + tris[1].second.ToString() + " ; "
+                + tris[1].second.ToString() + " ; \n";
+            MessageBox.Show(finalLine);
         }
         private void ObtuseAngles(Triangle[] tris)
         {
@@ -136,17 +145,26 @@ namespace Kursa4
 
             tris[tris.Length - 1].pen = redPen;
             tris[tris.Length - 2].pen = redPen;
-            MessageBox.Show("Angle_Obtuse_1: " + tris[tris.Length - 1].Angles()[1]);
-            MessageBox.Show("Angle_Obtuse_2: " + tris[tris.Length - 2].Angles()[1]);
+
+            finalLine += "Angle_Obtuse_1: "
+                + tris[tris.Length - 1].first.ToString() + " ; "
+                + tris[tris.Length - 1].second.ToString() + " ; "
+                + tris[tris.Length - 1].second.ToString() + " ; \n"
+                +"Angle_Obtuse_2: "
+                + tris[tris.Length - 2].first.ToString() + " ; "
+                + tris[tris.Length - 2].second.ToString() + " ; "
+                + tris[tris.Length - 2].second.ToString() + " ; \n";
+            MessageBox.Show(finalLine);
+            wr.WriteLine(finalLine);
+            wr.Close();
         }
 
         private void panel1_Paint(object sender, PaintEventArgs e)
         {
             Graphics gr = panel1.CreateGraphics();
-            
+
             AcuteAngles(triangles);
             ObtuseAngles(triangles);
-
             foreach (Triangle t in triangles)
             {
                 //Console.WriteLine($"x={t.x}, y={t.y}");
@@ -155,6 +173,7 @@ namespace Kursa4
                 Point[] coordinates = { t.first, t.second, t.third };
                 gr.DrawPolygon(t.pen, coordinates);
             }
+
         }
 
     }
